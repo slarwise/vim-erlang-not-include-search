@@ -50,8 +50,15 @@ function! s:GotoSymbolInModule(module, symbol, split) abort
 endfunction
 
 function! s:FindFile(fname) abort
-    " TODO: Look for file using includeexpr. See issue on fugitive
     let path = findfile(a:fname)
+    if !empty(path)
+        return path
+    endif
+    " Taken from https://github.com/tpope/vim-fugitive/blob/master/autoload/fugitive.vim
+    if &includeexpr =~# '\<v:fname\>'
+      sandbox let fname = eval(substitute(&includeexpr, '\C\<v:fname\>', '\=string(a:fname)', 'g'))
+      let path = findfile(fname)
+    endif
     return path
 endfunction
 
