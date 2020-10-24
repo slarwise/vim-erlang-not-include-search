@@ -12,7 +12,7 @@ For example, if your cursor is on `my_function()` with no colon before
 will be searched for inside `another_module`. Make sure that `another_module`
 can be found, see below.
 
-# Setup
+## Setup
 
 If you want to go to a definition in another module, you must make sure that
 this file can be found. Here are two settings that are usually enough to do
