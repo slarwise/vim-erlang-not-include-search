@@ -35,3 +35,8 @@ nnoremap <buffer><silent> <C-W>gd
 
 `GotoDefinitionUnderCursor` takes one argument, which says whether or not the
 definition should be opened in a horizontal split.
+
+## Include-search
+
+Include-search in vim is awesome, and doesn't require much setup. See this
+[gist](https://gist.github.com/slarwise/5cceef1c663822b383b59d9392e1890d).
