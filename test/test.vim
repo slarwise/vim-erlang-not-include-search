@@ -1,5 +1,5 @@
 " To run this from the command line, do
-" nvim -c 'source test/test.vim'
+" [n]vim -c 'source test/test.vim'
 source autoload/ErlangNotIncludeSearch.vim
 set path=test
 
