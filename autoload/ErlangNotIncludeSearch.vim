@@ -1,4 +1,8 @@
-let s:pattern_templates = {'function': '^%s\s*(', 'type': '^-type %s\s*('}
+let s:pattern_templates = {
+            \ 'function': '^%s\s*(',
+            \ 'type':     '^-\s*type\s*\%(\|(\)%s\s*(',
+            \ 'opaque':   '^-\s*opaque\s*\%(\|\)%s\s*('
+            \ }
 
 function! ErlangNotIncludeSearch#GotoDefinitionUnderCursor(split) abort
     let under_cursor = s:GetModuleAndSymbolUnderCursor()
