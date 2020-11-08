@@ -60,8 +60,10 @@ function! s:FindFile(fname) abort
     endif
     " Taken from https://github.com/tpope/vim-fugitive/blob/master/autoload/fugitive.vim
     if &includeexpr =~# '\<v:fname\>'
-      sandbox let fname = eval(substitute(&includeexpr, '\C\<v:fname\>', '\=string(a:fname)', 'g'))
-      let path = findfile(fname)
+        " TODO: This doesn't seem to work if &includeexpr is a variable pointing
+        " to a closure
+        sandbox let fname = eval(substitute(&includeexpr, '\C\<v:fname\>', '\=string(a:fname)', 'g'))
+        let path = findfile(fname)
     endif
     return path
 endfunction
