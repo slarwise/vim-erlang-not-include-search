@@ -6,7 +6,8 @@
 main(X, Y) ->
     b:add0(X, Y),
     b:add1(X, Y),
-    subtract0(X, Y).
+    subtract0(X, Y),
+    main(),
     subtract1(X, Y).
 
 subtract0(X, Y) ->

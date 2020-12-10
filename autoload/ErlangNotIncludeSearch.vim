@@ -1,10 +1,11 @@
 let s:pattern_templates = {
-            \ 'function': '^%s\s*(',
+            \ 'function': '^\(-spec\s\+\)\=%s\s*(',
             \ 'type':     '^-\s*type\s*\%(\|(\)%s\s*(',
             \ 'opaque':   '^-\s*opaque\s*\%(\|\)%s\s*('
             \ }
 
 function! ErlangNotIncludeSearch#GotoDefinitionUnderCursor(split) abort
+    echo s:pattern_templates
     let under_cursor = s:GetModuleAndSymbolUnderCursor()
     if empty(under_cursor['module'])
         call s:GotoFunctionInCurrentFile(under_cursor['symbol'], a:split)
