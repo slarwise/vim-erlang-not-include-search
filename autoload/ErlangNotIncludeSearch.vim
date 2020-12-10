@@ -5,7 +5,6 @@ let s:pattern_templates = {
             \ }
 
 function! ErlangNotIncludeSearch#GotoDefinitionUnderCursor(split) abort
-    echo s:pattern_templates
     let under_cursor = s:GetModuleAndSymbolUnderCursor()
     if empty(under_cursor['module'])
         call s:GotoFunctionInCurrentFile(under_cursor['symbol'], a:split)
