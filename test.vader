@@ -1,0 +1,85 @@
+" nvim -N -u NONE -c 'set runtimepath=.,$VIMRUNTIME,~/.config/nvim/plugged/vader.vim' -c 'runtime plugin/vader.vim' -c 'filetype plugin indent on' -c 'Vader!*' && echo Success || cat $VADER_OUTPUT_FILE
+
+" Setup {{{1
+Before:
+  nnoremap gd :<C-U>call ErlangNotIncludeSearch#GotoDefinitionUnderCursor(0)<CR>
+  !echo -n "-type my_number() :: integer().\n-opaque my_float() :: float().\n-spec sub(X :: number(), Y :: number()) -> number().\nsub(X, Y) -> X - Y.\n" > a.erl
+
+" Teardown {{{1
+After:
+  !rm test/a.erl
+
+" Local function definition {{{1
+Given erlang(Local function definition above):
+  add(X, Y) -> X + Y.
+  main() ->
+    add(1, 2).
+
+Do:
+  Ggdx
+
+Expect erlang:
+  dd(X, Y) -> X + Y.
+  main() ->
+    add(1, 2).
+
+Given erlang(Local function definition below):
+  main() ->
+    add(1, 2).
+  add(X, Y) -> X + Y.
+
+Do:
+  jgdx
+
+Expect erlang:
+  main() ->
+    add(1, 2).
+  dd(X, Y) -> X + Y.
+
+" Local function spec {{{1
+Given erlang(Local function spec):
+  -spec add(X :: number(), Y :: number()) -> number().
+  add(X, Y) -> X + Y.
+  main() ->
+    add(1, 2).
+
+Do:
+  Ggdx
+
+Expect erlang:
+  spec add(X :: number(), Y :: number()) -> number().
+  add(X, Y) -> X + Y.
+  main() ->
+    add(1, 2).
+
+" Go to function in another module {{{1
+Given erlang(Function in another module):
+  a:sub(1, 2).
+
+Do:
+  gd
+
+Then:
+  AssertEqual getline('.'), '-spec sub(X :: number(), Y :: number()) -> number().'
+
+" Go to type in another module {{{1
+Given erlang(Type in another module):
+  a:my_number()
+
+Do:
+  gd
+
+Then:
+  AssertEqual getline('.'), '-type my_number() :: integer().'
+
+" Go to opaque in another module {{{1
+Given erlang(Type in another module):
+  a:my_float()
+
+Do:
+  gd
+
+Then:
+  AssertEqual getline('.'), '-opaque my_float() :: float().'
+
+" vim: foldmethod=marker
