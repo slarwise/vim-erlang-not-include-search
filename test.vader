@@ -7,7 +7,7 @@ Before:
 
 " Teardown {{{1
 After:
-  !rm test/a.erl
+  !rm a.erl
 
 " Local function definition {{{1
 Given erlang(Local function definition above):
